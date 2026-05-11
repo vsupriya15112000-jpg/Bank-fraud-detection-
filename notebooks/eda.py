@@ -1,0 +1,98 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fd7b7610",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "# Load Dataset\n",
+    "\n",
+    "df = pd.read_csv(\"data/fraud.csv\")\n",
+    "\n",
+    "# Display first 5 rows\n",
+    "print(df.head())\n",
+    "\n",
+    "# Dataset shape\n",
+    "print(\"Dataset Shape:\", df.shape)\n",
+    "\n",
+    "# Dataset information\n",
+    "print(df.info())\n",
+    "\n",
+    "# Check missing values\n",
+    "print(df.isnull().sum())\n",
+    "\n",
+    "# Fraud vs Non-Fraud count\n",
+    "print(df['Class'].value_counts())\n",
+    "\n",
+    "# Visualization\n",
+    "plt.figure(figsize=(6,4))\n",
+    "sns.countplot(x='Class', data=df)\n",
+    "plt.title('Fraud vs Non-Fraud Transactions')\n",
+    "plt.show()\n",
+    "\n",
+    "# Transaction Amount Distribution\n",
+    "plt.figure(figsize=(10,5))\n",
+    "sns.histplot(df['Amount'], bins=50)\n",
+    "plt.title('Transaction Amount Distribution')\n",
+    "plt.show()\n",
+    "\n",
+    "# Correlation Matrix\n",
+    "plt.figure(figsize=(20,15))\n",
+    "correlation = df.corr()\n",
+    "sns.heatmap(correlation, cmap='coolwarm')\n",
+    "plt.title('Correlation Matrix')\n",
+    "plt.show()\n",
+    "\n",
+    "# Fraud Transactions Analysis\n",
+    "fraud = df[df['Class'] == 1]\n",
+    "normal = df[df['Class'] == 0]\n",
+    "\n",
+    "print(\"Fraud Transactions:\", fraud.shape[0])\n",
+    "print(\"Normal Transactions:\", normal.shape[0])\n",
+    "\n",
+    "# Compare transaction amounts\n",
+    "print(\"Fraud Amount Mean:\", fraud['Amount'].mean())\n",
+    "print(\"Normal Amount Mean:\", normal['Amount'].mean())\n",
+    "\n",
+    "# Boxplot\n",
+    "plt.figure(figsize=(8,5))\n",
+    "sns.boxplot(x='Class', y='Amount', data=df)\n",
+    "plt.title('Amount Distribution by Class')\n",
+    "plt.show()\n",
+    "\n",
+    "# Feature Distribution\n",
+    "features = ['V1', 'V2', 'V3', 'V4']\n",
+    "\n",
+    "for feature in features:\n",
+    "    plt.figure(figsize=(8,4))\n",
+    "    sns.histplot(df[feature], kde=True)\n",
+    "    plt.title(f'Distribution of {feature}')\n",
+    "    plt.show()\n",
+    "\n",
+    "print(\"EDA Completed Successfully\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "17065b97",
+   "metadata": {
+    "vscode": {
+     "languageId": "plaintext"
+    }
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
